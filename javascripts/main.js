@@ -8,7 +8,9 @@ $(document).ready(function(){
 
 	$( submit ).on( "click", function(event) {
 		event.preventDefault();
-		let output = `<div>${input.val()}<input type="checkbox"></input></div>`;
+		let output = `<div class="outputDiv">${input.val()}`;
+		output += `<button class="btn btn-success">Edit</button>`;
+		output += `<button class="btn btn-warning">Delete</button></div>`;
 		todo.append(output);
 	});
 
