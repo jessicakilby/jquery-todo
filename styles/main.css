@@ -11,9 +11,13 @@ body {
   background-color: LightBlue;
   text-align: center; }
 
-#todo {
+#todo, #completedDiv {
   text-align: center;
-  margin: 0 auto; }
+  margin: 0 auto;
+  margin-top: 5px;
+  border: 1px solid black;
+  width: 75%;
+  background-color: LightBlue; }
 
 .outputDiv {
-  font-size: 2em; }
+  font-size: 1.75em; }
