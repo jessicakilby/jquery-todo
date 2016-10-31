@@ -19,5 +19,11 @@ body {
   width: 75%;
   background-color: LightBlue; }
 
+button {
+  margin: 5px; }
+
+.completed {
+  font-size: 1em; }
+
 .outputDiv {
   font-size: 1.75em; }
