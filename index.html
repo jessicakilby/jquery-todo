@@ -8,7 +8,16 @@
 </head>
 <body>
 
-	<h1>Enter Message</h1>
+	<div class="container col-xs-4 col-xs-offset-4" id="login-container">
+        <h1 class="form-signin-heading">Todo App</h1>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required>
+        <button class="btn btn-lg btn-success col-xs-6" id="loginButton">Login</button>
+        <button class="btn btn-lg btn-primary col-xs-6" id="registerButton">Register</button>
+    </div>
+
+	<!-- <h1>Enter Message</h1> -->
 	<div class="panel panel-default search-bar col-xs-offset-3">
 	  <div class="panel-body">
 	    <input class="form-control" type="text" id="input" placeholder="Enter Message">
@@ -16,17 +25,24 @@
 	  </div>
 	</div>
 
-	<div id="todo">
-		<h2>To Do List</h2>
-	</div>
+	<div id="todo-container" class="hide">
+		<div id="todo">
+			<h2>To Do List</h2>
+			<ul id="incomplete-tasks"></ul>
+		</div>
 
-	<div id="completedDiv">
-		<h2>Completed Tasks</h2>
-	</div>
+		<div id="completedDiv">
+			<h2>Completed Tasks</h2>
+			<ul id="completed-tasks"></ul>
+		</div>
+	</div>	
 
 	<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
 	<script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<script src="/javascripts/firebase.js"></script>
+	<script src="/javascripts/firebaseMethods.js"></script>
+	<script src="/javascripts/firebaseAuth.js"></script>
 	<script src="/javascripts/main.js"></script>
 </body>
 </html>
