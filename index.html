@@ -17,15 +17,16 @@
         <button class="btn btn-lg btn-primary col-xs-6" id="registerButton">Register</button>
     </div>
 
-	<!-- <h1>Enter Message</h1> -->
-	<div class="panel panel-default search-bar col-xs-offset-3">
-	  <div class="panel-body">
-	    <input class="form-control" type="text" id="input" placeholder="Enter Message">
-	    <button type="submit" class="btn btn-primary btn-lg" id="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin' aria-hidden='true'></i>">Submit Message</button>
-	  </div>
-	</div>
+
 
 	<div id="todo-container" class="hide">
+		<div class="panel panel-default search-bar col-xs-offset-3">
+		  <div class="panel-body">
+		    <input class="form-control" type="text" id="input" placeholder="Enter Message">
+		    <button type="submit" class="btn btn-primary btn-lg" id="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin' aria-hidden='true'></i>">Submit Message</button>
+		  </div>
+		</div>
+		<div id="logout-container"></div>
 		<div id="todo">
 			<h2>To Do List</h2>
 			<ul id="incomplete-tasks"></ul>
@@ -43,6 +44,7 @@
 	<script src="/javascripts/firebase.js"></script>
 	<script src="/javascripts/firebaseMethods.js"></script>
 	<script src="/javascripts/firebaseAuth.js"></script>
+	<script src="/javascripts/firebaseUser.js"></script>
 	<script src="/javascripts/main.js"></script>
 </body>
 </html>
