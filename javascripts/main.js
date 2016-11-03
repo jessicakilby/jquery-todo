@@ -38,6 +38,16 @@ function putTodoInDOM (){
     });
 }
 
+function createLogoutButton(){
+	FbAPI.getUser(apiKeys, uid).then(function(userResponse){
+		console.log("userResponse", userResponse);
+		$('#logout-container').html("");
+		let currentUsername = userResponse.username;
+		let logoutButton = `<button class="btn btn-danger" id="logoutButton">LOGOUT ${currentUsername}</button>`;
+		$("#logout-container").append(logoutButton);
+	});
+} 
+
 $(document).ready(function(){
 	FbAPI.firebaseCredentials().then(function(keys){
 		console.log("keys", keys);
@@ -48,7 +58,8 @@ $(document).ready(function(){
 	$("#submit").on("click", function(){
 		let newItem = {
 			"task": $("#input").val(),
-			"isCompleted": false
+			"isCompleted": false,
+			"uid": uid
 		};
 		FbAPI.addTodo(apiKeys, newItem).then(function(){
 			putTodoInDOM();
@@ -71,7 +82,8 @@ $(document).ready(function(){
 			let itemId = $(this).data("fbid");
 			let editedItem = {
 				"task": parent.find(".inputTask").val(),
-				"isCompleted": false
+				"isCompleted": false,
+				"uid": uid
 			};
 			FbAPI.editTodo(apiKeys, itemId, editedItem).then(function(response){
 			parent.removeClass("editMode");
@@ -88,7 +100,8 @@ $(document).ready(function(){
 
 		let editedItem = {
 			"task": task,
-			"isCompleted": !updatedIsCompleted
+			"isCompleted": !updatedIsCompleted,
+			"uid": uid
 		};
 		FbAPI.editTodo(apiKeys, itemId, editedItem).then(function(){
 			putTodoInDOM();
@@ -98,17 +111,27 @@ $(document).ready(function(){
 	$("#registerButton").on("click", function(){
 		let email = $("#inputEmail").val();
 		let password = $("#inputPassword").val();
+		let username = $("#inputUsername").val();
 		let user = {
 			"email": email,
 			"password": password
 		};
 
-		FbAPI.registerUser(user).then(function(response){
-			console.log("register response", response);
+		FbAPI.registerUser(user).then(function(registerResponse){
+			console.log("register response", registerResponse);
+			// if you want to add more options
+			let newUser = {
+				"username": username,
+				"uid": registerResponse.uid
+			};
+			return FbAPI.addUser(apiKeys, newUser);
+			// return FbAPI.loginUser(user);
+		}).then(function(addUserResponse){
 			return FbAPI.loginUser(user);
 		}).then(function(loginResponse){
 			console.log("loginResponse", loginResponse);
 			uid = loginResponse.uid;
+			createLogoutButton();
 			putTodoInDOM();
 			$("#login-container").addClass("hide");
 			$("#todo-container").removeClass("hide");
@@ -124,10 +147,23 @@ $(document).ready(function(){
 		};
 		FbAPI.loginUser(user).then(function(loginResponse){
 			uid = loginResponse.uid;
+			createLogoutButton();
 			putTodoInDOM();
 			$("#login-container").addClass("hide");
 			$("#todo-container").removeClass("hide");
 		});
+	});
+
+	$("#logout-container").on("click", "#logoutButton", function(){
+		FbAPI.logoutUser();
+		uid = "";
+		$('#incomplete-tasks').html("");
+		$('#completed-tasks').html("");
+		$("#inputEmail").val("");
+		$("#inputPassword").val("");
+		$("#inputUsername").val("");
+		$('#login-container').removeClass("hide");
+		$('#todo-container').addClass("hide");
 	});
 
 });
